@@ -9,6 +9,7 @@ function Register(){
     const handleChange = (event) =>{
         const name = event.target.name;
         const value = event.target.value;
+        
         setInputs(values => ({...values, [name]: value}))
     }
 
@@ -16,6 +17,7 @@ function Register(){
         event.preventDefault;
         login(inputs)
     }
+
     return(
         <>
             <Menu />
@@ -39,6 +41,9 @@ function Register(){
                                     <label htmlFor='yes'>Yes</label>
                                     <input type='radio' id='no' name='supplier' value='no'  onChange={handleChange}></input>
                                     <label htmlFor='no'>No</label>
+                                    <br />
+                                    <label htmlFor='companyName'>Supplier name </label>
+                                    <input className='SignUpInput' type='text' name='suppplierName' onChange={handleChange} ></input>
                                 </div>
                                 <div className='SignUpForm'>
                                     <input type='submit' value='Register' className='SubmitButton'></input>
