@@ -4,8 +4,9 @@ import Homepage from './pages/Homepage.jsx';
 import Store from './pages/Store.jsx';
 import About from './pages/About.jsx';
 import Cart from './pages/Cart.jsx';
+import Checkout from './pages/Checkout';
 import Register from './pages/Register.jsx';
-import Account from './pages/Account.jsx'
+import Account from './pages/Account.jsx';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 const router = createBrowserRouter([
@@ -15,7 +16,7 @@ const router = createBrowserRouter([
   },
   {
     path:'/store',
-    element: <Store />
+    element: <Homepage />
   },
   {
     path:'/about',
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
     path:'/account',
     element: <Account />,
   },
+  {
+    path:'/checkout',
+    element: <Checkout />
+  }
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')).render(

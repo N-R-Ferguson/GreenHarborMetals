@@ -4,7 +4,7 @@ import Menu from './Menu.jsx';
 import Store from './Store.jsx';
 import User from './logedin.js';
 
-const isLoggedIn = false;
+const isLoggedIn = true;
 
 function Homepage() {
 

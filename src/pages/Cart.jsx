@@ -1,9 +1,10 @@
 import Menu from "./Menu";
 import '../assets/style/Cart.css'
+import { Link } from 'react-router-dom';
 
-function Cart(){
-  
-    return(
+function Cart() {
+
+    return (
         <>
             <Menu />
             <div>
@@ -17,13 +18,16 @@ function Cart(){
                                 </div>
                             </div>
                         </div>
-                        
+                        <br />
+                        <button><Link to='/store'>Continue Shopping</Link></button>
                     </div>
                     <div className='CheckoutContainer'>
-                            <div>
-                                <h3>Checkout</h3>
-                            </div>
+                        <div>
+                            <button><Link to='/checkout'>Continue to payment</Link></button>
                         </div>
+                    </div>
+
+
                 </div>
             </div>
         </>

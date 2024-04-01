@@ -8,7 +8,7 @@ const company = {
     imgURL: image,
 };
 
-const isLoggedIn = false;
+const isLoggedIn = true;
 
 function logout() {
     user.logout;
