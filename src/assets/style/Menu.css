@@ -1,0 +1,79 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+ 
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-image: url(../backgrounds/GreenHarborMA-Marinas.jpg);
+  background-repeat: none;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+#menu{
+  background-color: rgb(0, 145, 87);
+  background-color: rgba(0, 145, 87, 0.0);
+  width: 100%
+}
+
+#menu a{
+  text-align: center;
+  color: #000305;
+  font-size: 20px;
+  margin: 2px  4px;
+}
+
+#menu a:hover{
+  color: #ffde59;
+}
+
+#menu a.menuLinks{
+  padding: auto;
+}
+
+#menu a.cart{
+  padding: auto;
+  
+}
+
+#menu .menu-left{
+  display: inline-block;
+
+}
+
+#menu .menu-right{
+  float: right;
+}
+
+.CompanyNameContainer{
+  display: block;
+}
+
+.LogoContainer{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px auto 5px;
+}
+
+.CompanyName{
+  text-align: justify;
+  margin-top: px;
+  font-size: 50px;
+  /* color:rgb(0, 145, 87); */
+  color: black;
+}
+
+.logo{
+  width: 6%;
+}

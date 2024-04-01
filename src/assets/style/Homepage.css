@@ -1,0 +1,65 @@
+.LogInContainer {
+    margin: 20px auto;
+}
+
+.LogIn {
+    background-color: rgb(0, 145, 87);
+    background-color: rgba(0, 145, 87, 0.85);
+    display: flex;
+    justify-content: center;
+    width: 20%;
+    margin-left: 41%;
+    margin-top: 8%;
+    border: 2px solid black;
+    box-shadow: 5px 5px 5px px rgba(0, 0, 0, 0.5);
+}
+
+.SignUpForm {
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: black;
+    margin: 1em;
+}
+
+.SubmitButton{
+    color: black;  
+    background-color: rgba(0, 145, 87, 0.75);
+    
+    border-radius: 4px;
+}
+
+.SubmitButton:hover {
+    color: rgb(255, 222, 89);
+    background-color: rgba(0, 115, 69, 0.75);
+}
+
+.SignUpInput{
+    border:1px solid black;
+}
+
+.LogInSignUp{
+    color: black;
+    font-size: 14px;
+}
+
+.LogInSignUp a {
+    color: black;
+}
+
+.LogInSignUp a:hover {
+    color: #ffde59;
+}
+
+.Title{
+    text-align: center;
+    color: black;
+    font-size: 21px;
+    border: 2px solid black;
+    background-color: rgb(0, 0, 0, 0.25);
+
+}
