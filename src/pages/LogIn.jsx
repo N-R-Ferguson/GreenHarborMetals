@@ -28,11 +28,11 @@ function LogIn() {
                             <form onSubmit={handleSubmit}>
                                 <div className='SignUpForm'>
                                     <label htmlFor='email'>Email </label>
-                                    <input className='SignUpinput' type='text' name='uuid' onChange={handleChange} required></input>
+                                    <input className='SignUpinput' id='email' type='text' name='uuid' onChange={handleChange} required></input>
                                 </div>
                                 <div className='SignUpForm'>
                                     <label htmlFor='password'>Password </label>
-                                    <input className='SignUpInput' type='password' name='psw' onChange={handleChange} required></input>
+                                    <input className='SignUpInput' id='password' type='password' name='psw' onChange={handleChange} required></input>
                                 </div>
                                 <div className='SignUpForm'>
                                     <input type='submit' value='Login' className='SubmitButton'></input>

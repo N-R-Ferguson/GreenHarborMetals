@@ -19,7 +19,10 @@ function Cart() {
                             </div>
                         </div>
                         <br />
-                        <button><Link to='/store'>Continue Shopping</Link></button>
+                        <div>
+                            <button><Link to='/store'>Continue Shopping</Link></button>
+                        </div>
+                        
                     </div>
                     <div className='CheckoutContainer'>
                         <div>
