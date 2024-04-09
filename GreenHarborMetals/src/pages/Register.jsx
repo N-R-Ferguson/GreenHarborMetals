@@ -17,19 +17,19 @@ function Register(){
         setInputs(values => ({...values, [name]: value}))
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async event => {
         event.preventDefault;
-        
-        console.log(inputs);
 
-        // const body = { inputs };
+        const body = inputs;
 
-        // const url = 'localhost:5000/register';
-        // const options = {
-        //     method: "POST",
-        //         headers: { "Content-Type": "application/json" },
-        //         body: JSON.stringify(body),
-        // };
+        const url = 'http://localhost:5000/register';
+        const options = {
+            method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body),
+        };
+
+        const response = await fetch(url, options);
 
         navigate('/');
     }
@@ -67,7 +67,7 @@ function Register(){
                                     <label htmlFor='no'>No</label>
                                     <br />
                                     <label htmlFor='companyName'>Supplier name </label>
-                                    <input className='SignUpInput' type='text' name='suppplierName' onChange={handleChange} ></input>
+                                    <input className='SignUpInput' type='text' name='supplierName' onChange={handleChange} ></input>
                                 </div>
                                 <div className='SignUpForm'>
                                     <input type='button' value='Register' className='SubmitButton' onClick={handleSubmit}></input>
