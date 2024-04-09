@@ -1,6 +1,7 @@
 import image from '../assets/logos/GreenHarborMetals.png';
 import '../assets/style/Menu.css';
 import { Link, useNavigate } from 'react-router-dom';
+import { deleteCookie } from '../assets/functions/cookies';
 
 const company = {
     name: 'GreenHarborMetals',
@@ -12,6 +13,7 @@ const company = {
 function isCart() {
     const navigate = useNavigate();
     const handleEvent = (event) => {
+        deleteCookie();
         navigate('/');
     };
     return (
@@ -38,6 +40,7 @@ function isCart() {
 function isAbout() {
     const navigate = useNavigate();
     const handleEvent = (event) => {
+        deleteCookie();
         navigate('/');
     };
     return (
@@ -65,6 +68,7 @@ function isAbout() {
 function isAccount() {
     const navigate = useNavigate();
     const handleEvent = (event) => {
+        deleteCookie();
         navigate('/');
     };
     return (
@@ -92,6 +96,7 @@ function isStore() {
     const navigate = useNavigate();
     
     const handleEvent = (event) => {
+        deleteCookie();
         navigate('/');
     };
     return (

@@ -3,7 +3,7 @@
 export default function getCookie(cname){
     let name = cname+ '=';
     let ca = document.cookie.split(';');
-
+    console.log(ca)
     for(let i = 0; i < ca.length; i++){
         let c = ca[i];
         while (c.charAt(0) == ' '){
@@ -25,12 +25,18 @@ export function setCookie(cname, cvalue, exdays){
 }
 
 export function checkCookie(){
-    let username = getCookie("username");
+    let username = getCookie("user");
     let retVal = false;
     if (username != "") {
         retVal = true;
     }
     return retVal;
+}
+
+
+export function deleteCookie(){
+    const date = new Date();
+    document.cookie = 'user=' + " " + ';' +  date.setTime(date.getTime() + (-1 * 24 * 60 * 60 * 1000)) + ';path=/';
 }
 
 

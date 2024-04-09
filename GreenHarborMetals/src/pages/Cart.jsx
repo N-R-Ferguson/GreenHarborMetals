@@ -1,9 +1,36 @@
 import StoreMenu from "./StoreMenu";
 import '../assets/style/Cart.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import {checkCookie} from "../assets/functions/cookies";
 
 function Cart() {
+    const navigate = useNavigate()
 
+    
+
+    useEffect(() => {
+        const onPageLoad = () => {
+            try{
+                let cookie = checkCookie();     
+                
+                if (cookie == false){
+    
+                     navigate('/');
+                }
+            }catch(err) {
+                
+                console.log(err.message);
+            }
+        };
+
+        if (document.readyState === 'complete'){
+            onPageLoad();
+        } else {
+            window.addEventListener('load', onPageLoad, false);
+            return () => window.removeEventListener('load', onPageLoad);
+        }
+    });
     return (
         <>
             <StoreMenu />

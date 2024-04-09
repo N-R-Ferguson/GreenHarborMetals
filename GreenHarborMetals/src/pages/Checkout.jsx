@@ -1,8 +1,37 @@
 import StoreMenu from "./StoreMenu";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import '../assets/style/Checkout.css'
-
+import { useNavigate } from 'react-router-dom';
+import { checkCookie } from "../assets/functions/cookies";
 function Checkout(){
+
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        const onPageLoad = () => {
+            try{
+                let cookie = checkCookie();
+
+                
+                
+                if (cookie == false){
+    
+                     navigate('/');
+                }
+            }catch(err) {
+                
+                console.log(err.message);
+            }
+        };
+
+        if (document.readyState === 'complete'){
+            onPageLoad();
+        } else {
+            window.addEventListener('load', onPageLoad, false);
+            return () => window.removeEventListener('load', onPageLoad);
+        }
+    });
+
     const [inputs, setInputs] = useState({})
 
     const handleChange = (event) =>{
