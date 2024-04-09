@@ -45,30 +45,6 @@ app.post("/login", async (req, res) => {
     }
 });
 
-//Cookies
-
-app.get('/setcookie', (req, res) => {
-    res.cookie("user", "currentUser", {
-        maxAge: 3600000,
-    });
-  
-    res.send("Cookies Set");
-});
-
-app.get('/getcookie', (req, res) => {
-    const user = req.cookies = req.cookies.user;
-
-    
-
-    sendback.user = user;
-    
-    res.send(sendback);
-    
-});
-
-app.get('/deletecookie', (req, res) => {
-    res.clearCookie("user");
-});
 
 
 app.listen(5000, () => {
