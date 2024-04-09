@@ -1,15 +1,8 @@
-.CartContainer{
+.Container{
     display: flex;
-    align-content: Center;
+    /* align-content: Center; */
     margin-top: 5px;
     margin-left: 42%;
-
-}
-
-.Cart{
-    background-color: rgb(0, 115, 69);
-    background-color: rgba(0, 115, 69, 0.75);
-    width: 25%;
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
@@ -20,9 +13,38 @@
     color: black;
 }
 
+.Cart{
+    background-color: rgb(0, 115, 69);
+    background-color: rgba(0, 115, 69, 0.75);
+    width: 25%;
+   
+}
+
+.CartButton{
+    background-color: rgb(0, 115, 69);
+    background-color: rgba(0, 115, 69, 0.75);
+    color: black;
+}
+
+.CartButton:hover{
+    background-color: rgb(0, 145, 87);
+    background-color: rgba(0, 145, 87, 0.75);
+}
+
 .CheckoutContainer{
     background-color: rgb(0, 115, 69);
     background-color: rgba(0, 115, 69, 0.75);
     width: 15%;
+
+}
+
+.CheckoutButton{
+    background-color: rgb(0, 115, 69);
+    background-color: rgba(0, 115, 69, 0.75);
+}
+
+.CheckoutButton:hover{
+    background-color: rgb(0, 145, 87);
+    background-color: rgba(0, 145, 87, 0.75);
 }
 

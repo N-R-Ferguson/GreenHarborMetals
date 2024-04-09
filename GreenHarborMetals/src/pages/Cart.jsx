@@ -5,10 +5,7 @@ import { useEffect } from 'react';
 import {checkCookie} from "../assets/functions/cookies";
 
 function Cart() {
-    const navigate = useNavigate()
-
-    
-
+    const navigate = useNavigate();
     useEffect(() => {
         const onPageLoad = () => {
             try{
@@ -36,7 +33,7 @@ function Cart() {
             <StoreMenu />
             <div>
                 <div>
-                    <div className="CartContainer">
+                    <div className="Container">
                         <div className='Cart'>
                             <h3>Cart</h3>
                             <div>
@@ -45,15 +42,15 @@ function Cart() {
                                 </div>
                             </div>
                         </div>
-                        <br />
+
                         <div>
-                            <button><Link to='/store'>Continue Shopping</Link></button>
+                            <button className="CartButton"><Link to='/store'>Continue Shopping</Link></button>
                         </div>
                         
                     </div>
                     <div className='CheckoutContainer'>
-                        <div>
-                            <button><Link to='/checkout'>Continue to payment</Link></button>
+                        <div className="CheckoutButton">
+                            <Link to='/checkout'><button className="CheckoutButton">Continue to payment</button></Link>
                         </div>
                     </div>
 

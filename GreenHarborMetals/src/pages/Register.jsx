@@ -19,9 +19,19 @@ function Register(){
 
     const handleSubmit = (event) => {
         event.preventDefault;
-        // register(inputs);
+        
+        console.log(inputs);
 
-        navigate('/store');
+        // const body = { inputs };
+
+        // const url = 'localhost:5000/register';
+        // const options = {
+        //     method: "POST",
+        //         headers: { "Content-Type": "application/json" },
+        //         body: JSON.stringify(body),
+        // };
+
+        navigate('/');
     }
 
     return(
@@ -32,7 +42,15 @@ function Register(){
                     <div>
                         <div>
                             <h4 className='Title'>Register</h4>
-                            <form onSubmit={handleSubmit}>
+                            <form>
+                            <div className='SignUpForm'>
+                                    <label htmlFor='firstname'>First Name </label>
+                                    <input className='SignUpInput' id='firstname' type='text' name='firstname' onChange={handleChange} required></input>
+                                </div>
+                                <div className='SignUpForm'>
+                                    <label htmlFor='lastname'>Last Name </label>
+                                    <input className='SignUpInput' id='lastname' type='text' name='lastname' onChange={handleChange} required></input>
+                                </div>
                                 <div className='SignUpForm'>
                                     <label htmlFor='email'>Email </label>
                                     <input className='SignUpInput' id='email' type='text' name='uuid' onChange={handleChange} required></input>
@@ -52,7 +70,7 @@ function Register(){
                                     <input className='SignUpInput' type='text' name='suppplierName' onChange={handleChange} ></input>
                                 </div>
                                 <div className='SignUpForm'>
-                                    <input type='submit' value='Register' className='SubmitButton'></input>
+                                    <input type='button' value='Register' className='SubmitButton' onClick={handleSubmit}></input>
                                 </div>
                             </form>
                             <div className='SignUpForm'>

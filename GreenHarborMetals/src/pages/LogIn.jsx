@@ -28,7 +28,7 @@ function LogIn() {
 
             const response = await fetch(url, options);
             const data = await response.json();
-            console.log(data.found);
+           
             if (data.found == true) {
                 
                 setCookie('user', inputs.uuid, 1);

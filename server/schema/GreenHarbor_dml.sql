@@ -22,6 +22,7 @@ VALUES
 INSERT INTO GreenHarbor.Company (Name, CompanyTypeID, StreetAddress, City, State, Zipcode) 
  VALUES
 ('Green Harbor', 3, '5555 Unversity Ave', 'Ann ARbor', 'MI', '48105');
+
  
  
  
