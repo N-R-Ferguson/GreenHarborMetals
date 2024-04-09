@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 function LogIn() {
     const navigate = useNavigate();
 
-    const [inputs, setInputs] = useState({})
+    const [inputs, setInputs] = useState("")
 
     const handleChange = (event) =>{
         const name = event.target.name;
@@ -19,21 +19,25 @@ function LogIn() {
         event.preventDefault;
         
         try{
-            const params =  {inputs};
+            const body =  inputs;
             const url = 'http://localhost:5000/login';
             const options = {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
-                params: JSON.stringify(params),
+                body: JSON.stringify(body),
             };
 
-            // const response = await fetch(url,options);
-            // console.log(response);
+            const response = await fetch(url,options);
+            console.log(response.ok);
+            if (response.ok == true){
+                console.log("ITS WORKING")
+                navigate('/store');
+            }
         }catch (err){
             console.log("Hello");
             console.log(err.message);
         }
-        navigate('/store');
+        
     }
 
     
@@ -44,7 +48,7 @@ function LogIn() {
                     <div>
                         <div>
                             <h4 className='Title'>Login</h4>
-                            <form onSubmit={handleSubmit}>
+                            <form >
                                 <div className='SignUpForm'>
                                     <label htmlFor='email'>Email </label>
                                     <input className='SignUpinput' id='email' type='text' name='uuid' onChange={handleChange} required></input>
@@ -54,7 +58,7 @@ function LogIn() {
                                     <input className='SignUpInput' id='password' type='password' name='psw' onChange={handleChange} required></input>
                                 </div>
                                 <div className='SignUpForm'>
-                                    <input type='submit' value='Login' className='SubmitButton'></input>
+                                    <input type='button' value='Login' className='SubmitButton' onClick={handleSubmit}></input>
                                 </div>
                             </form>
                             <div className='SignUpForm'>
