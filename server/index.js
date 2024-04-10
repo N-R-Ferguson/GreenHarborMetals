@@ -14,9 +14,8 @@ var data = {
     found: false,
 };
 
-var sendback = {
-    user: "",
-};
+let sendback = "";
+
 
 
 // Routes
@@ -32,7 +31,7 @@ app.post("/login", async (req, res) => {
             console.log("Executed after 1 second");
         }, 1000);
 
-        if (user.rows[0].password != req.body.password) {
+        if (user.rows[0].password == req.body.psw) {
             data.found = true;
             res.send(data);
         } else {
@@ -86,15 +85,40 @@ app.post("/register", async (req,res) => {
             query = "INSERT INTO GreenHarbor.Users (CompanyID, UserName, Email, Password, FirstName, LastName) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT(Email) DO NOTHING";
             await pool.query(query, [3,username, req.body.uuid, req.body.psw, req.body.firstname, req.body.lastname]);
             console.log("User inserted");
-
-         
         }
+    } catch (err) {
+        console.log(err.message);
+    }
+});
 
+// Account Info
+app.post('/accountinfo', async(req, res) => {
+
+    
+    try{
+        let query = "SELECT GreenHarbor.Users.companyid FROM GreenHarbor.Users WHERE GreenHarbor.Users.email=$1";
+        let response = await pool.query(query, [req.body.user]);
+        let id = response.rows[0].companyid;
+        
+        if (id == 1){
+            query = "SELECT GreenHarbor.Users.firstname, GreenHarbor.Users.lastname, GreenHarbor.Staff.positiontypeid, GreenHarbor.Company.companytypeid FROM GreenHarbor.Users INNER JOIN GreenHarbor.Staff ON GreenHarbor.Users.userid=GreenHarbor.Staff.userid INNER JOIN GreenHarbor.Company ON GreenHarbor.Users.companyid=GreenHarbor.Company.companyid WHERE email=$1";
+            response = await pool.query(query, [req.body.user]);
+        
+        }else if (id == 2){
+            query = "SELECT GreenHarbor.Users.firstname, GreenHarbor.Users.lastname, GreenHarbor.Company.companytypeid, GreenHarbor.Company.Name, GreenHarbor.Company.StreetAddress, GreenHarbor.Company.City, GreenHarbor.Company.State, GreenHarbor.Company.ZipCode FROM GreenHarbor.Users INNER JOIN GreenHarbor.Company ON GreenHarbor.Users.companyid=GreenHarbor.Company.companyid and GreenHarbor.Users.email=$1";
+            response = await pool.query(query, [req.body.user]);
+        } else {
+            query = "SELECT GreenHarbor.Users.firstname, GreenHarbor.Users.lastname, GreenHarbor.Company.companytypeid FROM GreenHarbor.Users INNER JOIN GreenHarbor.Company ON GreenHarbor.Users.companyid=GreenHarbor.Company.companyid WHERE email=$1";
+            response = await pool.query(query, [req.body.user]);
+        }   
+        res.send(response.rows[0]);
 
     } catch (err) {
         console.log(err.message);
     }
 });
+
+// Update Account Info
 
 
 app.listen(5000, () => {
