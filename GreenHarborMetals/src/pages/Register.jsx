@@ -37,8 +37,8 @@ function Register(){
     return(
         <>
             <MenuHomepage />
-            <div className='LogInContainer'>
-                <div className='LogIn'>
+            <div className='RegisterContainer'>
+                <div className='Register'>
                     <div>
                         <div>
                             <h4 className='Title'>Register</h4>
@@ -66,8 +66,25 @@ function Register(){
                                     <input type='radio' id='no' name='supplier' value='no'  onChange={handleChange}></input>
                                     <label htmlFor='no'>No</label>
                                     <br />
+                                    <h5 className='SubSection'>Supplier Section</h5>
                                     <label htmlFor='companyName'>Supplier name </label>
                                     <input className='SignUpInput' type='text' name='supplierName' onChange={handleChange} ></input>
+                                </div>
+                                <div className='SignUpForm'>
+                                    <label htmlFor='street'>Street Address </label>
+                                    <input className='SignUpInput' id='street' type='text' name='street' onChange={handleChange} required></input>
+                                </div>
+                                <div className='SignUpForm'>
+                                    <label htmlFor='city'>City </label>
+                                    <input className='SignUpInput' id='city' type='text' name='city' onChange={handleChange} required></input>
+                                </div>
+                                <div className='SignUpForm'>
+                                    <label htmlFor='state'>State </label>
+                                    <input className='SignUpInput' id='state' type='text' name='state' onChange={handleChange} required></input>
+                                </div>
+                                <div className='SignUpForm'>
+                                    <label htmlFor='zipcode'>Zipcode </label>
+                                    <input className='SignUpInput' id='zipcode' type='text' name='zip' onChange={handleChange} required></input>
                                 </div>
                                 <div className='SignUpForm'>
                                     <input type='button' value='Register' className='SubmitButton' onClick={handleSubmit}></input>

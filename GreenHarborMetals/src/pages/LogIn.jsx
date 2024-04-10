@@ -28,16 +28,16 @@ function LogIn() {
 
             const response = await fetch(url, options);
             const data = await response.json();
-           
+
             if (data.found == true) {
                 
                 setCookie('user', inputs.uuid, 1);
                 let cookie = checkCookie('user');
                 console.log(cookie);
                 navigate('/store');
-
-               
             }
+            alert('Login or password was incorrect. Please try again.');
+            
             
         } catch (err) {
             console.log("Hello");

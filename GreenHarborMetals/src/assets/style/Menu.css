@@ -57,11 +57,12 @@ body {
 
 .CompanyNameContainer{
   display: block;
+ 
 }
 
 .LogoContainer{
   display: flex;
-  align-items: center;
+  align-items:baseline;
   justify-content: center;
   margin: 5px auto 5px;
 }
