@@ -55,6 +55,7 @@ app.post("/register", async (req,res) => {
         let query = "";
       
         if (emailEnd == 'ghm.org'){
+            console.log('Staff');
             //Insert into user table
             query = "INSERT INTO GreenHarbor.Users (CompanyID, UserName, Email, Password, FirstName, LastName) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT(Email) DO NOTHING";
             await pool.query(query, [1,username, req.body.uuid, req.body.psw, req.body.firstname, req.body.lastname]);
@@ -68,7 +69,8 @@ app.post("/register", async (req,res) => {
             query = "INSERT INTO GreenHarbor.Staff (PositionTypeID, UserID, FirstName, LastName) VALUES ($1,$2,$3,$4) ON CONFLICT(UserID) DO NOTHING";
             await pool.query(query, [1, result.rows[0].userid, req.body.firstname, req.body.lastname]);
             console.log("Staff Member inserted");
-        }else if (supplier = 'yes'){
+        }else if (supplier == 'yes'){
+            console.log('Supplier');
             //Insert new company
             query = "INSERT INTO GreenHarbor.Company (CompanyTypeID, Name, StreetAddress, City, State, Zipcode) VALUES ($1,$2,$3,$4,$5,$6) ON CONFLICT(Name) DO NOTHING"
             await pool.query(query, [2, req.body.supplierName,'n','n','n','n']);
@@ -82,10 +84,13 @@ app.post("/register", async (req,res) => {
             await pool.query(query, [result.rows[0].companyid, username, req.body.uuid, req.body.psw, req.body.firstname, req.body.lastname]);
             console.log("User inserted");
         }else{
+            console.log('Customer');
             query = "INSERT INTO GreenHarbor.Users (CompanyID, UserName, Email, Password, FirstName, LastName) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT(Email) DO NOTHING";
             await pool.query(query, [3,username, req.body.uuid, req.body.psw, req.body.firstname, req.body.lastname]);
             console.log("User inserted");
         }
+
+        res.send('Done');
     } catch (err) {
         console.log(err.message);
     }
