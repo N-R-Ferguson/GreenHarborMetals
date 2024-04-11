@@ -145,7 +145,7 @@ comment on column Inventory.InventoryDate is
 /* Table: Metals                                                */
 /*==============================================================*/
 create table Metals (
-   MetalsID             INT4                 not null,
+   MetalsID             SERIAL                 not null,
    CompanyID            INT4                 not null,
    MetalType            VARCHAR(20)          not null,
    Weight               INT4                 not null,

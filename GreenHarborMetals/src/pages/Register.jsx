@@ -79,7 +79,7 @@ function Register(){
                                     <input className='SignUpInput' id='city' type='text' name='city' onChange={handleChange} required></input>
                                 </div>
                                 <div className='SignUpForm'>
-                                    <label htmlFor='state'>State </label>
+                                    <label htmlFor='state'>State Abb.</label>
                                     <input className='SignUpInput' id='state' type='text' name='state' onChange={handleChange} required></input>
                                 </div>
                                 <div className='SignUpForm'>

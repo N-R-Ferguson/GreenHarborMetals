@@ -1,8 +1,6 @@
-.Container{
-    display: flex;
-    /* align-content: Center; */
-    margin-top: 5px;
-    margin-left: 42%;
+
+
+.CartContainer{
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
     line-height: 1.5;
     font-weight: 400;
@@ -10,41 +8,67 @@
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    color: black;
-}
-
-.Cart{
-    background-color: rgb(0, 115, 69);
-    background-color: rgba(0, 115, 69, 0.75);
-    width: 25%;
-   
-}
-
-.CartButton{
-    background-color: rgb(0, 115, 69);
-    background-color: rgba(0, 115, 69, 0.75);
-    color: black;
-}
-
-.CartButton:hover{
+    color:black;
     background-color: rgb(0, 145, 87);
     background-color: rgba(0, 145, 87, 0.75);
+    float: left;
+    width: 31.5%;
+    margin-left: 34.3%;
+    border:2px solid black;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
 }
 
 .CheckoutContainer{
+    font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color:black;
+    background-color: rgb(0, 145, 87);
+    background-color: rgba(0, 145, 87, 0.75);
+    float:left;
+    margin-left: 4%;
+    width: 10%;
+    border:2px solid black;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.Cart{
+    padding-left: 1.4%;
+    padding-bottom:4%;
+}
+
+.Checkout{
+    padding-left: 3%;
+    padding-bottom:2%;
+}
+
+
+.CartButton{
+    background-color: rgb(0, 145, 87);
+    background-color: rgba(0, 145, 87, 0.75);
+    color: black;
+   
+}
+
+.CartButton:hover{
     background-color: rgb(0, 115, 69);
     background-color: rgba(0, 115, 69, 0.75);
-    width: 15%;
-
+    color: #ffde59;
 }
 
 .CheckoutButton{
-    background-color: rgb(0, 115, 69);
-    background-color: rgba(0, 115, 69, 0.75);
+    background-color: rgb(0, 145, 87);
+    background-color: rgba(0, 145, 87, 0.75);
+    color: black;
 }
 
 .CheckoutButton:hover{
-    background-color: rgb(0, 145, 87);
-    background-color: rgba(0, 145, 87, 0.75);
-}
+    background-color: rgb(0, 115, 69);
+    background-color: rgba(0, 115, 69, 0.75);
+    color: #ffde59;
+} 
 

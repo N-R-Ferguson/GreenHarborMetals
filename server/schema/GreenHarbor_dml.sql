@@ -22,18 +22,26 @@ VALUES
 INSERT INTO GreenHarbor.Company (Name, CompanyTypeID, StreetAddress, City, State, Zipcode) 
 VALUES 
 ('Green Harbor', 3, '5555 Unversity Ave', 'Ann Arbor', 'MI', '48105'),
-('Gold Metals', 2, '3245 Fake St', 'Fake Town', 'MA', '23454'),
-('notcompany', 1, 'none', 'none', 'none', 'none');
+('Gold Metals', 2, '7979 Gold St', 'Gold Town', 'MA', '19697'),
+('notcompany', 1, 'none', 'none', 'none', 'none'),
+('Silver Metals', 2, '4747 Silver St', 'Silver Town', 'CA', '10787'),
+('Iron Metals', 2, '2626 Iron St', 'Iron City', 'MI', '55845');
+
 
  
 INSERT INTO GreenHarbor.Users (CompanyID, UserName, Email, Password, FirstName, LastName)
 VALUES 
-(1, 'nfergghm', 'nferg@ghm.org', 'GHMStaff', 'Nolan', 'Ferguson'),
-(3, 'fakegmail', 'fake@gmail.com', 'fake', 'Joel', 'Terry'),
-(2, 'goldmetals', 'goldmetals@aumetals.com', 'auisbest', 'Au', 'Ag');
+(11, 'nfergghm', 'nferg@ghm.org', 'GHMStaff', 'Nolan', 'Ferguson'),
+(13, 'fakegmail', 'fake@gmail.com', 'fake', 'Joel', 'Terry'),
+(12, 'goldmetals', 'goldmetals@aumetals.com', 'auisbest', 'Au', 'Ag'),
+(11, 'staff', 'staff@ghm.org', 'Staff', 'Staff', 'Members'),
+(12, 'silvermetals', 'silvermetals@agmeatls.com', 'agisbest', 'Silver',' Metals'),
+(15, 'ironmetals', 'ironmetals@femetals.com', 'feisbest', 'Fe', 'Iron'),
+(13, 'billyjean', 'billyjean@billyjean.com', 'billyjeanpsw', 'Billy', 'Jean');
 
 
 
 INSERT INTO Staff (PositionTypeID, UserID, FirstName, LastName)
-VALUES (1, 1, 'Nolan', 'Ferguson'); 
- 
+VALUES 
+(1, 15, 'Nolan', 'Ferguson'),
+(1, 18, 'Staff', 'Members');

@@ -27,7 +27,7 @@ function isCart() {
                 <div className='menu-left'>
                     <Link to='/store'>Home</Link>
                     <Link to='/about'>About</Link>
-                    <Link to='/Account'>Account</Link>
+                    <Link to='/account'>Account</Link>
                 </div>
                 <div className='menu-right'>
                     <Link onClick={handleEvent}>Logout</Link>
