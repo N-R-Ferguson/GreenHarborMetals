@@ -66,7 +66,7 @@ function LogIn() {
                                 </div>
                             </form>
                             <div className='SignUpForm'>
-                                <h1 className='LogInSignUp'>Don't have an account?
+                                <h1 className='LogInSignUp'>Don't have an account?&ensp;
                                     <Link to='/register'>Sign Up</Link>
                                 </h1>
                             </div>

@@ -181,7 +181,7 @@ comment on column OrderCart.Quantity is
 /* Table: OrderType                                             */
 /*==============================================================*/
 create table OrderType (
-   OrderTypeID          INT4                 not null,
+   OrderTypeID          SERIAL               not null,
    Name                 Name                 null,
    constraint OrderTypePK primary key (OrderTypeID)
 );
@@ -256,7 +256,7 @@ comment on column SalesOrder.ShipToState is
 /* Table: Siloh                                                 */
 /*==============================================================*/
 create table Siloh (
-   SilohID              INT4                 not null,
+   SilohID              Serial               not null,
    Name                 Name                 not null,
    Capacity             INT8                 not null,
    constraint Siloh_PK primary key (SilohID),

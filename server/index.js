@@ -14,15 +14,11 @@ var data = {
     found: false,
 };
 
-let sendback = "";
-
-
-
 // Routes
 
 // Login
 app.post("/login", async (req, res) => {
-   
+
     try {
         const query = 'SELECT password FROM GreenHarbor.Users WHERE email = $1';
         const user = await pool.query(query, [req.body.uuid]);
@@ -45,7 +41,7 @@ app.post("/login", async (req, res) => {
 });
 
 // Register
-app.post("/register", async (req,res) => {
+app.post("/register", async (req, res) => {
     try {
 
         const temp = req.body.uuid.split("@");
@@ -55,15 +51,15 @@ app.post("/register", async (req,res) => {
         let query = "";
 
         console.log(emailEnd);
-      
-        if (emailEnd == 'ghm.org'){
+
+        if (emailEnd == 'ghm.org') {
             //Insert into user table
             query = "SELECT companyid FROM GreenHarbor.Company WHERE name=$1"
             let result = await pool.query(query, ['Green Harbor']);
             const ghid = result.rows[0].companyid;
 
             query = "INSERT INTO GreenHarbor.Users (CompanyID, UserName, Email, Password, FirstName, LastName) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT(Email) DO NOTHING";
-            await pool.query(query, [ ghid, username, req.body.uuid, req.body.psw, req.body.firstname, req.body.lastname]);
+            await pool.query(query, [ghid, username, req.body.uuid, req.body.psw, req.body.firstname, req.body.lastname]);
             console.log("User inserted");
 
             // Select the userid
@@ -74,10 +70,10 @@ app.post("/register", async (req,res) => {
             query = "INSERT INTO GreenHarbor.Staff (PositionTypeID, UserID, FirstName, LastName) VALUES ($1,$2,$3,$4) ON CONFLICT(UserID) DO NOTHING";
             await pool.query(query, [1, result.rows[0].userid, req.body.firstname, req.body.lastname]);
             console.log("Staff Member inserted");
-        }else if (supplier == 'yes'){
+        } else if (supplier == 'yes') {
             //Insert new company
             query = "INSERT INTO GreenHarbor.Company (CompanyTypeID, Name, StreetAddress, City, State, Zipcode) VALUES ($1,$2,$3,$4,$5,$6) ON CONFLICT(Name) DO NOTHING"
-            await pool.query(query, [2, req.body.supplierName,'n','n','n','n']);
+            await pool.query(query, [2, req.body.supplierName, 'n', 'n', 'n', 'n']);
             console.log('Company Inserted')
 
             //Select companyid from company table
@@ -87,13 +83,13 @@ app.post("/register", async (req,res) => {
             query = "INSERT INTO GreenHarbor.Users (CompanyID, UserName, Email, Password, FirstName, LastName) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT(Email) DO NOTHING";
             await pool.query(query, [result.rows[0].companyid, username, req.body.uuid, req.body.psw, req.body.firstname, req.body.lastname]);
             console.log("User inserted");
-        }else{
+        } else {
             query = "SELECT companyid FROM GreenHarbor.Company WHERE name=$1"
             result = await pool.query(query, ['notcompany']);
             const customer = result.rows[0].companyid;
 
             query = "INSERT INTO GreenHarbor.Users (CompanyID, UserName, Email, Password, FirstName, LastName) VALUES ($1, $2, $3, $4, $5, $6) ON CONFLICT(Email) DO NOTHING";
-            await pool.query(query, [customer,username, req.body.uuid, req.body.psw, req.body.firstname, req.body.lastname]);
+            await pool.query(query, [customer, username, req.body.uuid, req.body.psw, req.body.firstname, req.body.lastname]);
             console.log("User inserted");
         }
 
@@ -104,33 +100,86 @@ app.post("/register", async (req,res) => {
 });
 
 // Account Info
-app.post('/accountinfo', async(req, res) => {
-
-    
-    try{
-        let query = "SELECT GreenHarbor.Users.companyid FROM GreenHarbor.Users WHERE GreenHarbor.Users.email=$1";
+app.post('/accountinfo', async (req, res) => {
+    try {
+        let query = "SELECT c1.companytypeid FROM GreenHarbor.Users u INNER JOIN GreenHarbor.Company c1 ON  u.companyid=c1.companyid WHERE u.email=$1";
         let response = await pool.query(query, [req.body.user]);
-        let id = response.rows[0].companyid;
-        
-        if (id == 1){
-            query = "SELECT GreenHarbor.Users.userid, GreenHarbor.Users.firstname, GreenHarbor.Users.lastname, GreenHarbor.Staff.positiontypeid, GreenHarbor.Company.companytypeid FROM GreenHarbor.Users INNER JOIN GreenHarbor.Staff ON GreenHarbor.Users.userid=GreenHarbor.Staff.userid INNER JOIN GreenHarbor.Company ON GreenHarbor.Users.companyid=GreenHarbor.Company.companyid WHERE email=$1";
+        let id = response.rows[0].companytypeid;
+
+        if (id == 3) {
+            query = "SELECT u.userid, u.firstname, u.lastname, c1.companytypeid, p1.name FROM GreenHarbor.Users u INNER JOIN GreenHarbor.Staff s ON u.userid=s.userid INNER JOIN GreenHarbor.Company c1 ON u.companyid=c1.companyid INNER JOIN GreenHarbor.PositionType p1 ON s.positiontypeid=p1.positiontypeid WHERE email=$1";
             response = await pool.query(query, [req.body.user]);
-        
-        }else if (id == 2){
+        } else if (id == 2) {
             query = "SELECT GreenHarbor.Users.userid, GreenHarbor.Users.firstname, GreenHarbor.Users.lastname, GreenHarbor.Company.companytypeid, GreenHarbor.Company.Name, GreenHarbor.Company.StreetAddress, GreenHarbor.Company.City, GreenHarbor.Company.State, GreenHarbor.Company.ZipCode FROM GreenHarbor.Users INNER JOIN GreenHarbor.Company ON GreenHarbor.Users.companyid=GreenHarbor.Company.companyid and GreenHarbor.Users.email=$1";
             response = await pool.query(query, [req.body.user]);
+            console.log(response.rows[0]);
         } else {
             query = "SELECT GreenHarbor.Users.userid, GreenHarbor.Users.firstname, GreenHarbor.Users.lastname, GreenHarbor.Company.companytypeid FROM GreenHarbor.Users INNER JOIN GreenHarbor.Company ON GreenHarbor.Users.companyid=GreenHarbor.Company.companyid WHERE email=$1";
             response = await pool.query(query, [req.body.user]);
-        }   
-        res.send(response.rows[0]);
+        }
+        res.json(response.rows[0]);
 
     } catch (err) {
         console.log(err.message);
     }
 });
 
-// Update Account Info
+// Add Metals
+app.post('/add-metal', async (req, res) => {
+    try {
+        //Get siloh id for metal type
+        let query = "SELECT s.silohid FROM GreenHarbor.Siloh s WHERE s.name=$1";
+        let response = await pool.query(query, [req.body.metaltype]);
+        const silohid = response.rows[0].silohid;
+
+        query = "SELECT c1.companyid FROM GreenHarbor.Company c1 WHERE c1.name=$1";
+        response = await pool.query(query, [req.body.name]);
+        const companyID = response.rows[0].companyid;
+
+        query = "INSERT INTO GreenHarbor.Metals (CompanyID, MetalType, Weight) VALUES ($1, $2, $3) RETURNING MetalsID";
+        response = await pool.query(query, [companyID, req.body.metaltype, req.body.weight]);
+        const metalid = response.rows[0].metalsid;
+
+        const date = new Date();
+        const today = date.getMonth()+1 + '/' + date.getDate() + '/' + date.getFullYear();
+        const mined = req.body.month + '/' + req.body.day + '/' + req.body.year;
+
+        query = "INSERT INTO GreenHarbor.Inventory (MetalsID, SilohID, Amount, DateMined, InventoryDate) VALUES ($1, $2, $3, $4, $5)"
+        response = await pool.query(query, [metalid, silohid, req.body.weight, mined, today]);
+    } catch (err) {
+        console.log(err.message);
+    }
+    res.send('Metal Added');
+});
+
+app.get('/products', async (req,res) => {
+    try {
+        const query = "SELECT row_number() OVER (ORDER BY a.companyid), a.name AS company_name, s.name as siloh_name, sum(m1.weight) FROM GreenHarbor.Metals m1 INNER JOIN GreenHarbor.Siloh s ON m1.metaltype = s.name INNER JOIN GreenHarbor.Company a ON a.companyid=m1.companyid GROUP BY a.companyid, s.silohid ORDER BY s.name ASC, a.name ASC, row_number() OVER (ORDER BY s.name) ASC";
+        const response = await pool.query(query);
+        res.send(response.rows);
+    } catch (err) {
+        console.log(err.message);
+    }
+    
+})
+
+app.post('/get-products', async(req,res) => {
+    try{
+        const query = "SELECT row_number() OVER (ORDER BY i.inventoryid), i.amount, i.datemined, i.inventorydate FROM GreenHarbor.Metals m1 INNER JOIN GreenHarbor.Inventory i ON m1.metalsid=i.metalsid INNER JOIN GreenHarbor.Company c1 ON m1.companyid=c1.companyid WHERE c1.name=$1 AND m1.metaltype=$2"
+        const response = await pool.query(query, [req.body.c_name, req.body.m_name]);
+        res.send(response.rows);
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+
+app.post('/add-to-cart', async(req,res) => {
+    // find if there is an order already in the Orders Table for selected company
+    //If Not then add an order for that company to Orders Table and return orderid
+    //Else get order id for the selected company
+
+
+});
 
 
 app.listen(5000, () => {

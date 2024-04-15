@@ -91,7 +91,7 @@ function Register(){
                                 </div>
                             </form>
                             <div className='SignUpForm'>
-                                <h1 className='LogInSignUp'>Already have an account? 
+                                <h1 className='LogInSignUp'>Already have an account?&ensp;
                                     <Link to='/'>Login</Link>
                                 </h1>
                             </div>
