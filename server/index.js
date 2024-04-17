@@ -245,7 +245,14 @@ app.post('/get-order-cost', async (req, res) => {
     } 
 });
 
-app.post()
+app.post('/sales-order', async (req,res) =>{
+    let query = "SELECT o.orderid FROM GreenHarbor.Orders o INNER JOIN GreenHarbor.Company c ON o.companyid=c.companyid WHERE c.name=$1";
+    let response = await pool.query(query, [req.body.name]);
+    const orderid = response.rows[0].orderid;
+
+    query = "INSERT INTO GreenHarbor.SalesOrder (OrderID, ShipToStreet, ShipToCity, ShipToState, ShipToZip) VALUES ($1, $2, $3, $4, $5)";
+    response = await pool.query(query, [orderid, req.body.address, req.body.city, req.body.state, req.body.zip]);   
+});
 
 app.get('/get-orders', async (req, res) => {
     try{
