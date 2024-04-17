@@ -3,7 +3,7 @@ import '../assets/style/Products.css'
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { checkCookie } from '../assets/functions/cookies.js';
-
+import getCookie from '../assets/functions/cookies.js';
 function Product() {
 
     const location = useLocation();
@@ -11,6 +11,28 @@ function Product() {
     const metal = location.state.metal;
 
     const [products, setProducts] = useState(null);
+
+    const handleAddToCart = async (product) => {
+        const body = {
+            buyer: getCookie("user"),
+            company: company,
+            metal: metal,
+            amount: product.amount,
+            price: price,
+        };
+
+       
+        
+        const url = "http://localhost:5000/add-to-cart";
+        const options = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+        };
+
+        const response = await fetch(url, options);
+
+    };
 
     useEffect(() => {
         const onPageLoad = () => {
@@ -57,13 +79,13 @@ function Product() {
 
     let price = 0;
     if (metal == 'Gold') {
-        price = 76.995;
+        price = 77;
     } else if (metal == 'Lithium') {
-        price = 0.01541;
+        price = 1;
     } else if (metal == 'Neodymium') {
-        price = 0.919;
+        price = 1;
     } else {
-        price = 0.00663;
+        price = 1;
     }
 
     if (products != null) {
@@ -85,14 +107,14 @@ function Product() {
                                         <h3>Amount: {product.amount} g</h3>
                                         <h3>Date Mined: {product.datemined.split("T")[0]}</h3>
                                         <div className='ButtonContainer'>
-                                            <button className='ItemButton'>Add to Cart</button>
+                                            <button className='ItemButton' onClick={async () => handleAddToCart(product)}>Add to Cart</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         ))}
                         <div className='BackContainer'>
-                        <Link to='/store' ><button className='ItemButton'>Back</button></Link>
+                        <Link to='/store'><button className='ItemButton'>Back</button></Link>
                         </div>
                         
                     </div>

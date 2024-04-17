@@ -20,10 +20,10 @@ SELECT
   m.weight,
   oc.quantity,
   oc.UnitPrice,
-  m.weight*oc.Quantity as ComputedWeight,
+  oc.Quantity as ComputedWeight,
   oc.quantity*oc.UnitPrice as ComputedCost
  FROM GreenHarbor.OrderCart oc 
- JOIN GreenHarbor.Metals m ON (m.MetalsID = oc.MetalsID);
+ JOIN GreenHarbor.Metals m ON (m.CompanyID = oc.CompanyID);
 
 
 /*==============================================================*/
@@ -45,7 +45,6 @@ select
   o.OrderID,
   o.CompanyID,
   C.Name AS CustomerName,
-  CAST(S.FirstName ||' '||S.LastName AS VARCHAR(100)) AS SalesPerson,
   O.DateOrdered,
   so.ShipToStreet,
   so.ShipToCity,
@@ -54,7 +53,6 @@ select
 FROM GreenHarbor.Orders o 
 JOIN GreenHarbor.SalesOrder so ON (so.OrderID = o.OrderID)
 JOIN GreenHarbor.Company c ON (c.CompanyID = o.CompanyID)
-JOIN GreenHarbor.Staff s ON (s.StaffID = o.StaffID)
 JOIN GreenHarbor.OrderTotalView otv ON (otv.OrderID = o.OrderID);
 
 

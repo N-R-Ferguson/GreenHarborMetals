@@ -11,15 +11,10 @@ function Checkout(){
         const onPageLoad = () => {
             try{
                 let cookie = checkCookie();
-
-                
-                
                 if (cookie == false){
-    
                      navigate('/');
                 }
-            }catch(err) {
-                
+            }catch(err) {  
                 console.log(err.message);
             }
         };

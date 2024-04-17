@@ -198,7 +198,6 @@ comment on column OrderType.OrderTypeID is
 create table Orders (
    OrderID              SERIAL not null,
    CompanyID            INT4                 not null,
-   StaffID              INT4                 not null,
    OrderTypeID          INT4                 not null,
    DateOrdered          DATE                 not null,
    constraint PK_ORDERS primary key (OrderID),

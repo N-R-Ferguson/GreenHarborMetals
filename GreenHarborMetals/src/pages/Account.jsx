@@ -13,6 +13,7 @@ function Account() {
     const [userData, setUserData] = useState(null);
     const [metal, setMetals] = useState("");
     const [inputs, setInputs] = useState();
+    const [orders, setOrders] = useState(null);
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -34,7 +35,7 @@ function Account() {
             };
             const url = 'http://localhost:5000/add-metal'
             const options = {
-                method:"POST",
+                method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body),
             }
@@ -75,6 +76,10 @@ function Account() {
 
         };
 
+        const getOrders = async () => {
+            const url = "http://localhost:5000/get-orders";
+        };
+
         if (document.readyState === 'complete') {
 
             onPageLoad();
@@ -85,27 +90,29 @@ function Account() {
         }
     }, []);
 
-    
+
     if (userData != null) {
         if (userData[0].companytypeid == 3) {
-            return (
-                <>
-                    <StoreMenu />
-                    <div className='Container'>
-                        <h1>Account Details</h1>
-                        <div>
+            if (orders != null) {
+                return (
+                    <>
+                        <StoreMenu />
+                        <div className='Container'>
+                            <h1>Account Details</h1>
                             <div>
-                                {userData.map((data) => (
-                                    <div key={data.userid}>
-                                        <h3>First Name: {data.firstname}&ensp;&ensp;Last Name: {data.lastname}</h3>
-                                        <h3>Position: {data.name}</h3>
-                                    </div>
-                                ))}
+                                <div>
+                                    {userData.map((data) => (
+                                        <div key={data.userid}>
+                                            <h3>First Name: {data.firstname}&ensp;&ensp;Last Name: {data.lastname}</h3>
+                                            <h3>Position: {data.name}</h3>
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </>
-            )
+                    </>
+                )
+            }
         } else if (userData[0].companytypeid == 2) {
             return (
                 <>
