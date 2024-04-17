@@ -18,9 +18,8 @@ var data = {
 
 // Login
 app.post("/login", async (req, res) => {
-
     try {
-        const query = 'SELECT password FROM GreenHarbor.Users WHERE email = $1';
+        const query = "SELECT password FROM GreenHarbor.Users WHERE email = $1";
         const user = await pool.query(query, [req.body.uuid]);
 
         setTimeout(function () {
@@ -43,14 +42,11 @@ app.post("/login", async (req, res) => {
 // Register
 app.post("/register", async (req, res) => {
     try {
-
         const temp = req.body.uuid.split("@");
         let username = temp[0];
         let emailEnd = temp[1];
         let supplier = req.body.supplier;
         let query = "";
-
-        console.log(emailEnd);
 
         if (emailEnd == 'ghm.org') {
             //Insert into user table
@@ -72,7 +68,6 @@ app.post("/register", async (req, res) => {
             console.log("Staff Member inserted");
         } else if (supplier == 'yes') {
             //Insert new company
-            console.log(req.body);
             query = "INSERT INTO GreenHarbor.Company (CompanyTypeID, Name, StreetAddress, City, State, Zipcode) VALUES ($1,$2,$3,$4,$5,$6) ON CONFLICT(Name) DO NOTHING"
             await pool.query(query, [2, req.body.supplierName, req.body.street, req.body.city, req.body.state, req.body.zip]);
             console.log('Company Inserted')

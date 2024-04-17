@@ -16,7 +16,6 @@ function LogIn() {
 
     const handleSubmit = async event => {
         event.preventDefault;
-
         try {
             const body = inputs;
             const url = 'http://localhost:5000/login';
@@ -25,23 +24,18 @@ function LogIn() {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body),
             };
-
             const response = await fetch(url, options);
             const data = await response.json();
 
             if (data.found == true) {
-                
                 setCookie('user', inputs.uuid, 1);
                 navigate('/store');
             } else {
                 alert('Login or password was incorrect. Please try again.');
             }
-            
         } catch (err) {
-            console.log("Hello");
             console.log(err.message);
         }
-
     }
 
 
