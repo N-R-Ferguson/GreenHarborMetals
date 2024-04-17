@@ -216,6 +216,22 @@ app.post('/add-to-cart', async (req, res) => {
     }
 });
 
+app.post('/remove-from-cart', async (req,res) => {
+    const metalsid = req.body.metalsid;
+    const amount = req.body.amount;
+    
+    let query = "UPDATE GreenHarbor.Metals SET weight=$1 WHERE metalsid=$2";
+    let response = await pool.query(query, [amount, metalsid]);
+
+    query = "UPDATE GreenHarbor.Inventory SET amount=$1 WHERE metalsid=$2";
+    response = await pool.query(query, [amount, metalsid]);
+
+    query = "DELETE FROM GreenHarbor.OrderCart WHERE metalsid=$1";
+    response = await pool.query(query, [metalsid]);
+
+
+});
+
 app.post('/get-cart', async (req, res) => {
     try {
         let query = "SELECT o.orderid FROM GreenHarbor.Orders o INNER JOIN GreenHarbor.Company c ON o.companyid=c.companyid WHERE c.name=$1";

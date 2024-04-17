@@ -20,22 +20,42 @@ function Cart() {
         }
         newprice = parseFloat(str).toFixed(2);
         return newprice;
-    }
+    };
 
     const tax = (price) => {
         let newprice = convertToFloat(price)
-        
         return +(newprice) * 0.06;
 
-    }
+    };
 
     const total = (price) => {
         let newprice = convertToFloat(price)
-        
+
         const tax = newprice * 0.06;
         newprice = +(newprice) + tax;
         return newprice
-    }
+    };
+
+    const handleRemove = async (order) => {
+
+        try {
+            const body = {
+                metalsid: order.metalsid,
+                amount: order.quantity,
+            };
+
+            const url = "http://localhost:5000/remove-from-cart";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body),
+            };
+
+            const response = await fetch(url, options);
+        } catch (err) {
+            console.log(err.message);
+        }
+    };
 
     useEffect(() => {
         const onPageLoad = () => {
@@ -101,7 +121,7 @@ function Cart() {
                                             <p>Amount: {order.quantity} g<br />
                                                 Price: {order.unitprice}/g<br />
                                                 Cost: {order.computedcost}</p>
-                                            <button className="CartButton">Remove</button>
+                                            <button className="CartButton" onClick={async () => handleRemove(order)}>Remove</button>
                                         </div>
                                     ))}
                                 </div>
