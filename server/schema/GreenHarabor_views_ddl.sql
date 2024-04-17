@@ -44,15 +44,16 @@ create or replace view SalesOrderView as
 select 
   o.OrderID,
   o.CompanyID,
-  C.Name AS CustomerName,
-  O.DateOrdered,
+  u.FirstName AS CustomerFirstName,
+  u.Lastname AS CustomerLastName,
+  o.DateOrdered,
   so.ShipToStreet,
   so.ShipToCity,
   so.ShipToZip,
   so.ShipToState
 FROM GreenHarbor.Orders o 
 JOIN GreenHarbor.SalesOrder so ON (so.OrderID = o.OrderID)
-JOIN GreenHarbor.Company c ON (c.CompanyID = o.CompanyID)
+JOIN GreenHarbor.Users u ON (u.CompanyID = o.CompanyID)
 JOIN GreenHarbor.OrderTotalView otv ON (otv.OrderID = o.OrderID);
 
 

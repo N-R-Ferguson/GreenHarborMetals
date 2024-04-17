@@ -239,7 +239,8 @@ create table SalesOrder (
    ShipToStreet         StreetAddress        not null,
    ShipToCity           City                 not null,
    ShipToState          State                not null,
-   ShipToZip            ZipCode              not null
+   ShipToZip            ZipCode              not null,
+constraint SalesOrder_PK primary key (OrderID),
 );
 
 comment on column SalesOrder.ShipToStreet is
@@ -344,11 +345,6 @@ alter table PurchaseOrder
 
 alter table PurchaseOrder
    add constraint PurchaseOrderOrderFK foreign key (OrderID)
-      references Orders (OrderID)
-      on delete restrict on update restrict;
-
-alter table SalesOrder
-   add constraint SalesOrderOrderFK foreign key (OrderID)
       references Orders (OrderID)
       on delete restrict on update restrict;
 

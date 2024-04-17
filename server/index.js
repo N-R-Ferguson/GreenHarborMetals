@@ -220,44 +220,72 @@ app.post('/get-cart', async (req, res) => {
     try {
         let query = "SELECT o.orderid FROM GreenHarbor.Orders o INNER JOIN GreenHarbor.Company c ON o.companyid=c.companyid WHERE c.name=$1";
         let response = await pool.query(query, [req.body.name]);
-        const orderid = response.rows[0].orderid;
-
-        query = "SELECT * FROM GreenHarbor.OrderCartView WHERE orderid=$1";
-        response = await pool.query(query, [orderid]);
-        res.send(response.rows);
+        const orderid = response.rows[0];
+        if (orderid != null) {
+            query = "SELECT * FROM GreenHarbor.OrderCartView WHERE orderid=$1";
+            response = await pool.query(query, [orderid.orderid]);
+            res.send(response.rows);
+        }
     } catch (err) {
         console.log(err.message);
     }
-    
+
 });
 
 app.post('/get-order-cost', async (req, res) => {
     try {
         let query = "SELECT o.orderid FROM GreenHarbor.Orders o INNER JOIN GreenHarbor.Company c ON o.companyid=c.companyid WHERE c.name=$1";
         let response = await pool.query(query, [req.body.name]);
-        const orderid = response.rows[0].orderid;
-
-        query = "SELECT * FROM GreenHarbor.OrderTotalView WHERE orderid=$1";
-        response = await pool.query(query, [orderid]);
-        res.send(response.rows);
+        const orderid = response.rows[0];
+        if (orderid != null) {
+            query = "SELECT * FROM GreenHarbor.OrderTotalView WHERE orderid=$1";
+            response = await pool.query(query, [orderid.orderid]);
+            res.send(response.rows);
+        }
     } catch (err) {
         console.log(err.message);
-    } 
+    }
 });
 
-app.post('/sales-order', async (req,res) =>{
-    let query = "SELECT o.orderid FROM GreenHarbor.Orders o INNER JOIN GreenHarbor.Company c ON o.companyid=c.companyid WHERE c.name=$1";
-    let response = await pool.query(query, [req.body.name]);
-    const orderid = response.rows[0].orderid;
+app.post('/sales-order', async (req, res) => {
+    try {
+        let query = "SELECT o.orderid FROM GreenHarbor.Orders o INNER JOIN GreenHarbor.Company c ON o.companyid=c.companyid WHERE c.name=$1";
+        let response = await pool.query(query, [req.body.name]);
+        const orderid = response.rows[0];
 
-    query = "INSERT INTO GreenHarbor.SalesOrder (OrderID, ShipToStreet, ShipToCity, ShipToState, ShipToZip) VALUES ($1, $2, $3, $4, $5)";
-    response = await pool.query(query, [orderid, req.body.address, req.body.city, req.body.state, req.body.zip]);   
+        if (orderid.orderid != null) {
+            query = "INSERT INTO GreenHarbor.SalesOrder (OrderID, ShipToStreet, ShipToCity, ShipToState, ShipToZip) VALUES ($1, $2, $3, $4, $5)";
+            response = await pool.query(query, [orderid.orderid, req.body.address, req.body.city, req.body.state, req.body.zip]);
+        }
+    } catch (err) {
+        console.log(err.message);
+    }
 });
 
 app.get('/get-orders', async (req, res) => {
+    try {
+        const query = "SELECT * FROM GreenHarbor.SalesOrderView";
+        const response = await pool.query(query);
+        res.send(response.rows);
+    } catch (err) {
+        console.log(err.message);
+    }
+});
+
+app.post('/accept-order', async (req,res) => {
     try{
-        const query = "SELECT * FROM GreenHarb";
-    }catch (err){
+        console.log("Here");
+        let query = "UPDATE GreenHarbor.OrderCart SET order WHERE orderid=$1";
+        let response = await pool.query(query, [req.body.orderid]);
+
+        query = "DELETE FROM GreenHarbor.Orders WHERE orderid=$1";
+        response = await pool.query(query, [req.body.orderid]);
+
+        query = "DELETE FROM GreenHarbor.SalesOrder WHERE orderid=$1";
+        response = await pool.query(query, [req.body.orderid]);
+
+        res.send("Order Accpted");
+    }catch(err) {
         console.log(err.message);
     }
 });

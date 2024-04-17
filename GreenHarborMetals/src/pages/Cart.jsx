@@ -24,17 +24,18 @@ function Cart() {
 
     const tax = (price) => {
         let newprice = convertToFloat(price)
-        return newprice * 0.06;
+        
+        return +(newprice) * 0.06;
 
     }
 
     const total = (price) => {
         let newprice = convertToFloat(price)
+        
         const tax = newprice * 0.06;
-        return newprice + tax;
-
+        newprice = +(newprice) + tax;
+        return newprice
     }
-
 
     useEffect(() => {
         const onPageLoad = () => {
@@ -66,7 +67,6 @@ function Cart() {
 
             let response = await fetch(url, options);
             const cart = await response.json();
-
             setOrders(cart);
 
             url = "http://localhost:5000/get-order-cost";
@@ -121,6 +121,38 @@ function Cart() {
                                             <Link to='/checkout'><button className="CheckoutButton">Continue to payment</button></Link>
                                         </p>
                                     </div>))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </>
+        )
+    } else {
+        return (
+            <>
+                <StoreMenu />
+                <div>
+                    <div className="OverallContainer">
+                        <div className="CartContainer">
+                            <div className="Cart">
+                                <h3 className="CartName">Cart</h3>
+                                <div className="OrdersContainer">
+
+                                </div>
+                                <div className="CartButtonContainer">
+                                    <Link to='/store'><button className="CartButton">Continue Shopping</button></Link>
+                                </div>
+                            </div>
+                        </div>
+                        <div className='CheckoutContainer'>
+                            <div>
+                                <div className="Checkout">
+                                    <p> Price:<br />
+                                        Tax:<br />
+                                        Total Price:<br />
+                                        <Link to='/checkout'><button className="CheckoutButton">Continue to payment</button></Link>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>

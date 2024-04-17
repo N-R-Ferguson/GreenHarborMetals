@@ -10,10 +10,8 @@ function Store() {
     const [products, setProducts] = useState(null);
 
     const handleClick = (product) => {
-
         navigate("/product", { state: { c_name: product.company_name, metal: product.siloh_name } })
     }
-
 
     useEffect(() => {
         const onPageLoad = () => {
@@ -21,21 +19,17 @@ function Store() {
                 let cookie = checkCookie();
 
                 if (cookie == false) {
-
                     navigate('/');
                 }
             } catch (err) {
-
                 console.log(err.message);
             }
         };
 
         const getProducts = async () => {
-
             const url = "http://localhost:5000/products";
             const response = await fetch(url);
             const c = await response.json();
-            console.log(c);
             setProducts(c);
         }
 
@@ -72,6 +66,25 @@ function Store() {
                                         </div>
                                     </div>
                                 ))}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </>
+        )
+    }else{
+        return (
+            <>
+                <StoreMenu />
+                <div>
+                    <div>
+                        <div className='StoreContainer'>
+                            <div>
+                                <h1 className='Header'>Available Metals</h1>
+                            </div>
+                            
+                            <div className='ProductContainer'>
+                                
                             </div>
                         </div>
                     </div>

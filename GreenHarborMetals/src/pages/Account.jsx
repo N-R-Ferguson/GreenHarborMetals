@@ -38,7 +38,7 @@ function Account() {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(body),
-            }
+            };
 
             const response = await fetch(url, options);
         } catch (err) {
@@ -46,6 +46,25 @@ function Account() {
         }
     }
 
+    const handleAccept = async (orderid) => {
+        try {
+            const body = {
+                orderid: orderid
+            };
+
+            const url = "http://localhost:5000/accept-order";
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(body),
+            };
+
+            const response = await fetch(url, options);
+
+        } catch (err) {
+            console.log(err.message);
+        }
+    }
 
     useEffect(() => {
         const onPageLoad = () => {
@@ -78,12 +97,16 @@ function Account() {
 
         const getOrders = async () => {
             const url = "http://localhost:5000/get-orders";
+
+            const response = await fetch(url);
+            const orderInfo = await response.json();
+            setOrders(orderInfo);
         };
 
         if (document.readyState === 'complete') {
-
             onPageLoad();
             userinfo();
+            getOrders();
         } else {
             window.addEventListener('load', onPageLoad, false);
             return () => window.removeEventListener('load', onPageLoad);
@@ -94,6 +117,7 @@ function Account() {
     if (userData != null) {
         if (userData[0].companytypeid == 3) {
             if (orders != null) {
+                console.log(orders);
                 return (
                     <>
                         <StoreMenu />
@@ -105,6 +129,22 @@ function Account() {
                                         <div key={data.userid}>
                                             <h3>First Name: {data.firstname}&ensp;&ensp;Last Name: {data.lastname}</h3>
                                             <h3>Position: {data.name}</h3>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                            <h1>Orders Ready For Processing</h1>
+                            <div>
+                                <div className='SalesOrdersContainer'>
+                                    {orders.map((order) => (
+                                        <div className='SalesOrders' key={order.orderid}>
+                                            <p>First Name: {order.customerfirstname} LastName: {order.customerlastname}<br />
+                                                Address: {order.shiptostreet}<br />
+                                                City: {order.shiptocity}<br />
+                                                State: {order.shiptostate}<br />
+                                                Zipcode: {order.shiptozip}<br />
+                                                Country: United State Of America</p>
+                                            <button onClick={async () => handleAccept(order.orderid)}>Accept</button>
                                         </div>
                                     ))}
                                 </div>
@@ -169,13 +209,21 @@ function Account() {
                         {userData.map((data) => (
                             <div key={data.userid}>
                                 <h3>First Name: {data.firstname}&ensp;&ensp;Last Name: {data.lastname}</h3>
-
                             </div>
                         ))}
                     </div>
                 </>
             )
         }
+    } else {
+        return (
+            <>
+                <StoreMenu />
+                <div className='Container'>
+                    <h1>Account Details</h1>
+                </div>
+            </>
+        )
     }
 }
 
