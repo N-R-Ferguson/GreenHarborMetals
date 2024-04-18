@@ -21,7 +21,7 @@ app.post("/login", async (req, res) => {
     try {
         const query = "SELECT password FROM GreenHarbor.Users WHERE email = $1";
         const user = await pool.query(query, [req.body.uuid]);
-
+        console.log(user.rows[0])
         setTimeout(function () {
             console.log("Executed after 1 second");
         }, 1000);
@@ -36,6 +36,8 @@ app.post("/login", async (req, res) => {
 
     } catch (err) {
         console.log(err.message);
+        data.found = false;
+            res.send(data);
     }
 });
 
@@ -193,8 +195,8 @@ app.post('/add-to-cart', async (req, res) => {
         }
         const orderid = response.rows[0].orderid;
 
-        query = "SELECT m1.metalsid FROM GreenHarbor.Metals m1 WHERE m1.metaltype=$1 AND m1.companyid=$2";
-        response = await pool.query(query, [req.body.metal, companyid]);
+        query = "SELECT m1.metalsid FROM GreenHarbor.Metals m1 INNER JOIN GreenHarbor.Inventory i ON m1.weight=i.amount WHERE m1.metaltype=$1 AND m1.companyid=$2 AND m1.weight=$3";
+        response = await pool.query(query, [req.body.metal, companyid,req.body.amount]);
         metalsid = response.rows[0].metalsid;
 
         query = "INSERT INTO GreenHarbor.OrderCart (OrderID, MetalsID, UnitPrice, Quantity) VALUES($1, $2, $3, $4)";
@@ -285,8 +287,7 @@ app.get('/get-orders', async (req, res) => {
 
 app.post('/accept-order', async (req,res) => {
     try{
-        console.log("Here");
-        let query = "UPDATE GreenHarbor.OrderCart SET order WHERE orderid=$1";
+        let query = "DELETE FROM GreenHarbor.OrderCart WHERE orderid=$1";
         let response = await pool.query(query, [req.body.orderid]);
 
         query = "DELETE FROM GreenHarbor.Orders WHERE orderid=$1";

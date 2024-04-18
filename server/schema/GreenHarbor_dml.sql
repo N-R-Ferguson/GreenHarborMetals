@@ -28,20 +28,14 @@ VALUES
  
 INSERT INTO GreenHarbor.Company (Name, CompanyTypeID, StreetAddress, City, State, Zipcode) 
 VALUES 
-('Green Harbor', 3, '5555 Unversity Ave', 'Ann Arbor', 'MI', '48105'),
-('Gold Metals', 2, '7979 Gold St', 'Gold Town', 'MA', '19697'),
-('Silver Metals', 2, '4747 Silver St', 'Silver Town', 'CA', '10787'),
-('Iron Metals', 2, '2626 Iron St', 'Iron City', 'MI', '55845');
-
+('Green Harbor', 3, '5555 Unversity Ave', 'Ann Arbor', 'MI', '48105');
 
 
 INSERT INTO GreenHarbor.Users (CompanyID, UserName, Email, Password, FirstName, LastName)
 VALUES 
-(1, 'nfergghm', 'nferg@ghm.org', 'GHMStaff', 'Nolan', 'Ferguson'),
-(2, 'goldmetals', 'goldmetals@aumetals.com', 'auisbest', 'Au', 'Ag'),
-(1, 'staff', 'staff@ghm.org', 'Staff', 'Staff', 'Members'),
-(3, 'silvermetals', 'silvermetals@agmeatls.com', 'agisbest', 'Silver',' Metals'),
-(4, 'ironmetals', 'ironmetals@femetals.com', 'feisbest', 'Fe', 'Iron');
+(1, 'nfergghm', 'nferg@ghm.org', 'GHMStaff', 'Nolan', 'Ferguson');
 
-
+INSERT INTO GreenHarbor.Staff (PositionTypeID, UserID, FirstName, LastName)
+VALUES
+(1, 1, Nolan, Ferguson);
 
